@@ -8,6 +8,8 @@ SHELL ["/bin/bash", "-c"]
 ARG USER
 ARG ROS_DISTRO
 
+ENV USER ${USER}
+ENV ROS_DISTRO ${ROS_DISTRO}
 # Create the ros_ws workspace in the Docker image
 
 RUN apt-get update \
