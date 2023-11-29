@@ -4,6 +4,16 @@ services:
   
   ros2_node:
 
+    platform: linux/amd64
+
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        - FROM_IMAGE=ros:${ROS_DISTRO_NAME}-ros-core
+        - USER=${USER_NAME}
+        - ROS_DISTRO=${ROS_DISTRO_NAME}
+    
     image: tedlinlab/ros2:${ARCH}-${ROS_DISTRO_NAME}-devel
 
     volumes:
@@ -18,9 +28,13 @@ services:
 
     env_file:
       - .env
-
+    
     init: true # enable tini
 
     network_mode: host
 
     pid: host
+  
+
+    
+    

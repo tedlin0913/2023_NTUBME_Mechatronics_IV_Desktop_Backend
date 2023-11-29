@@ -23,9 +23,12 @@ services:
 
     extends:
 
-    file: common-services.yml
+      file: common-services.yaml
 
-    service: ros2_node
+      service: ros2_node
+
+    profiles:
+      - dev
 
     container_name: auto_drive
 
@@ -35,9 +38,9 @@ services:
 
     extends:
 
-    file: common-services.yml
+      file: common-services.yaml
 
-    service: ros2_node
+      service: ros2_node
 
     container_name: web_controller
 
@@ -47,9 +50,9 @@ services:
 
     extends:
 
-    file: common-services.yml
+      file: common-services.yaml
 
-    service: ros2_node
+      service: ros2_node
 
     container_name: image_proc
 
