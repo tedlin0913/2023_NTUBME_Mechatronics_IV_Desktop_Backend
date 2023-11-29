@@ -1,0 +1,11 @@
+[submodule "auto_drive"]
+path = ./ros_ws/src/auto_drive
+url = ./ros_ws/src/auto_drive
+
+[submodule "image_proc"]
+path = ./ros_ws/src/image_proc
+url = ./ros_ws/src/image_proc
+
+[submodule "web_controller"]
+path = ./ros_ws/src/web_controller
+url = ./ros_ws/src/web_controller
