@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+
+  dicovery_server_0:
+
+    image: tedlinlab/ros2:${ARCH}-${ROS_DISTRO_NAME}-devel
+
+    container_name: ros2_discovery_server_0
+
+    command: fastdds discovery --server-id 0
+
+    init: true # enable tini
+
+    env_file:
+      - .env
+
+    network_mode: host
+
+    pid: host
+
+  auto_drive:
+
+    extends:
+
+    file: common-services.yml
+
+    service: ros2_node
+
+    container_name: auto_drive
+
+    command: ros2 run auto_drive auto_drive_node
+
+  web_controller:
+
+    extends:
+
+    file: common-services.yml
+
+    service: ros2_node
+
+    container_name: web_controller
+
+    command: ros2 run web_controller web_controller_node
+
+  image_proc:
+
+    extends:
+
+    file: common-services.yml
+
+    service: ros2_node
+
+    container_name: image_proc
+
+    command: ros2 run image_proc image_proc_node

@@ -1,0 +1,16 @@
+repositories:
+
+  auto_drive:
+    type: git
+    url: https://github.com/tedlin0913/ROS2_Desktop_Auto_Drive_Node.git
+    version: main
+
+  web_controller:
+    type: git
+    url: https://github.com/tedlin0913/ROS2_Desktop_Web_Controller_Node.git
+    version: main
+
+  image_proc:
+    type: git
+    url: https://github.com/tedlin0913/ROS2_Desktop_Image_Proc_Node.git
+    version: main
