@@ -25,7 +25,7 @@ RUN apt-get update \
 WORKDIR /home/${USER}/ros_ws/src
 
 COPY ../ros_ws/src/.repo .
-RUN pip3 install flask opencv-python-headless vcstool
+RUN pip3 install flask opencv-python-headless numpy==1.23.0 vcstool
 RUN vcs import ./ < .repo
 
 WORKDIR /home/${USER}/ros_ws

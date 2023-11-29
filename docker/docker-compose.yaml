@@ -27,9 +27,6 @@ services:
 
       service: ros2_node
 
-    profiles:
-      - dev
-
     container_name: auto_drive
 
     command: ros2 run auto_drive auto_drive_node
