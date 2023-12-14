@@ -1,10 +1,15 @@
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import CompressedImage
-from std_msgs.msg import String, Int32MultiArray
-# import numpy as np
-import cv2
 
+from rclpy.qos import qos_profile_sensor_data
+from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSReliabilityPolicy
+from rclpy.executors import MultiThreadedExecutor
+from rclpy.callback_groups import MutuallyExclusiveCallbackGroup
+from std_msgs.msg import Float32, String
+import cv2
+from threading import Thread, Lock, Event
+from collections import deque
+import time
 # TODO: add rtsp streaming using opencv
 # TODO: Set url using ros2 parameter, may need a callback or use service client?
 
@@ -26,10 +31,19 @@ class ImageProcNode(Node):
 
         # Publisher for danger zone notification
         # Lag is not allowed
-        self.control_pub = self.create_publisher(
+        control_cbgroup = MutuallyExclusiveCallbackGroup()
+        data_cbgroup = MutuallyExclusiveCallbackGroup()
+        self.fan_pub = self.create_publisher(
             String,
-            'control/motor',
-            1)
+            'control/fan',
+            callback_group=control_cbgroup)
+        self.timer = self.create_timer(0.05, 
+                                       self.data_callback
+                                       callback_group=data_cbgroup)
+        self.buffer = deque(maxlen=3)
+
+        self.lock = Lock()
+        self.measure_thread = Thread(target=self.measure_task)
 
     # def color_callback(self, msg):
     #     self.max_hsv = np.array([msg.data[0], msg.data[1], msg.data[2]])
